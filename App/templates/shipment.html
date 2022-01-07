@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block title %} Shipment {% endblock %}
+
+{% block changeLink %} <a href="/inventory/">Inventory</a> {% endblock %}
+
+{% block content %}
+<h1> Shipment </h1>
+<form action="/shipment/" id="shipment-form" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <label for="Name">Name</label>
+    <input id="Name" type="text" name="Name" required/>
+    <input type="submit" />
+</form>
+{% endblock %}

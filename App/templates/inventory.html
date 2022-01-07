@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block title %} Inventory Management {% endblock %}
+
+{% block script %} <script src="static/inventory.js"></script>{% endblock %}
+
+{% block changeLink %} <a href="/shipment/">Shipment</a> {% endblock %}
+
+
+{% block content %}
+
+<style>
+    div {
+        display: inline-block;
+    }
+</style>
+<h1> Inventory Management </h1>
+
+<form action="/inventory/" id="inventory-form" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <label for="Name">Name</label>
+    <input id="Name" type="text" name="Name" required/>
+    <label for="Quantity">Quantity</label>
+    <input id="Quantity" type="number" name="Quantity" required/>
+    <input type="submit"/>
+    <hr>
+    <h3>All Inventory Items are:</h3>
+    {% for item in inventoryItems %}
+        Name: {{ item.name }} Quantity: <div onclick="changeQuantity('{{ item.name }}', 'increase');"> + </div>
+                                        <div id='{{ item.name }}'>{{item.quantity}}</div>
+                                        <div onclick="changeQuantity('{{ item.name }}', 'decrease')"> - </div> </br>
+    {% endfor %}
+</form>
+{% endblock %}
