@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash
 from .db import db, InventoryItem
 
+
 inventory = Blueprint("inventory", __name__, template_folder='templates', static_folder='static',
                       url_prefix='/inventory')
 
@@ -21,14 +22,18 @@ def inventoryLanding():
             flash("Error in Item Creation")
         return redirect('/inventory/')
 
+
 @inventory.route("/<item>/<action>")
 def actions(item, action):
     try:
-        item = InventoryItem.query.filter_by(name=item).first()
+        item = InventoryItem.query.filter_by(name=item)
         if action == "increase":
-            item.quantity += 1
+            item.first().quantity += 1
         elif action == "decrease":
+            item = item.first()
             item.quantity = max(item.quantity - 1, 0)
+        elif action == "delete":
+            item.delete()
         else:
             raise RuntimeError
         db.session.commit()

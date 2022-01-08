@@ -10,6 +10,12 @@
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <label for="Name">Name</label>
     <input id="Name" type="text" name="Name" required/>
+    {% for item in itemList %}
+        <label for="{{'item-'+loop.index|string}}">{{item.name}}</label>
+        <input id="{{'item-'+loop.index|string}}" type="number" name="{{item.name}}" value="0" required/>
+        Available: {{item.quantity}}<br/>
+    {% endfor %}
+    <input name="length" value="{{itemList | length}}" hidden>
     <input type="submit" />
 </form>
 {% endblock %}

@@ -26,9 +26,13 @@
     <hr>
     <h3>All Inventory Items are:</h3>
     {% for item in inventoryItems %}
+        <div>
         Name: {{ item.name }} Quantity: <div onclick="changeQuantity('{{ item.name }}', 'increase');"> + </div>
                                         <div id='{{ item.name }}'>{{item.quantity}}</div>
-                                        <div onclick="changeQuantity('{{ item.name }}', 'decrease')"> - </div> </br>
-    {% endfor %}
+                                        <div onclick="changeQuantity('{{ item.name }}', 'decrease')"> - </div>
+                                        <div onclick="changeQuantity('{{ item.name }}', 'delete')"> X </div>
+        </br><hr/>
+        </div>
+            {% endfor %}
 </form>
 {% endblock %}

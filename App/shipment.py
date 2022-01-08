@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect
-
+from .db import InventoryItem
 shipment = Blueprint("shipment", __name__, template_folder='templates', static_folder='static', url_prefix='/shipment')
 
 
 @shipment.route("/", methods=['GET', 'POST'])
 def shipmentLanding():
     if request.method == 'GET':
-        return render_template("shipment.html")
+        inventoryItems = InventoryItem.query.all() or []
+        return render_template("shipment.html", itemList=inventoryItems)
     else:
-        print(request.form)
         return redirect('/shipment/')

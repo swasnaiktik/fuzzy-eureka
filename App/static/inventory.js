@@ -7,8 +7,10 @@ changeQuantity = (item, action) => {
                 if(action === "increase"){
                     console.log(itemTag.innerHTML)
                     itemTag.innerHTML = Number(itemTag.innerHTML) + 1
-                }else{
+                }else if(action === "decrease"){
                     itemTag.innerHTML = Math.max(Number(itemTag.innerHTML) - 1, 0)
+                }else{
+                    itemTag.parentElement.remove()
                 }
             }
         }

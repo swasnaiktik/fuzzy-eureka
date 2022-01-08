@@ -6,6 +6,7 @@ import flask_wtf
 def logistics():
     app = Flask("Logistics")
     app.config['SECRET_KEY'] = "Testing"
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     csrf = flask_wtf.CSRFProtect()
     csrf.init_app(app)
