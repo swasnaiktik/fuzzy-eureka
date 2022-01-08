@@ -11,11 +11,18 @@
     <label for="Name">Name</label>
     <input id="Name" type="text" name="Name" required/>
     {% for item in itemList %}
-        <label for="{{'item-'+loop.index|string}}">{{item.name}}</label>
-        <input id="{{'item-'+loop.index|string}}" type="number" name="{{item.name}}" value="0" required/>
-        Available: {{item.quantity}}<br/>
+        <label for="{{item.name}}">{{item.name}}</label>
+        <input id="{{item.name}}" type="number" name="{{item.name}}" value="0" required/>
+        Available quantity: {{item.quantity}}<br/>
     {% endfor %}
-    <input name="length" value="{{itemList | length}}" hidden>
     <input type="submit" />
-</form>
+</form><hr/>
+
+    {% for shipment in shipmentList %}
+        {{shipment.name}}
+        {% for item in shipment.items %}
+            {{ item.item.name }}, {{item.quantity}}
+        {% endfor %}</hr>
+    {% endfor %}
+
 {% endblock %}
