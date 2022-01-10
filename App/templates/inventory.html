@@ -4,35 +4,78 @@
 
 {% block script %} <script src="static/inventory.js"></script>{% endblock %}
 
-{% block changeLink %} <a href="/shipment/">Shipment</a> {% endblock %}
+{% block changeLink %} <a href="/shipment/">Shipment Management</a> {% endblock %}
 
 
 {% block content %}
+<div class="row">
+    <div class="col">
+        <h1 class="display-5">Inventory Management </h1>
+    </div>
+</div>
 
-<style>
-    div {
-        display: inline-block;
-    }
-</style>
-<h1> Inventory Management </h1>
-
-<form action="/inventory/" id="inventory-form" method="post" enctype="multipart/form-data">
+<form class="form-control g-3" action="/inventory/" id="inventory-form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <label for="Name">Name</label>
-    <input id="Name" type="text" name="Name" required/>
-    <label for="Quantity">Quantity</label>
-    <input id="Quantity" type="number" name="Quantity" required/>
-    <input type="submit"/>
-    <hr>
-    <h3>All Inventory Items are:</h3>
-    {% for item in inventoryItems %}
-        <div>
-        Name: {{ item.name }} Quantity: <div onclick="changeQuantity('{{ item.name }}', 'increase');"> + </div>
-                                        <div id='{{ item.name }}'>{{item.quantity}}</div>
-                                        <div onclick="changeQuantity('{{ item.name }}', 'decrease')"> - </div>
-                                        <div onclick="changeQuantity('{{ item.name }}', 'delete')"> X </div>
-        </br><hr/>
-        </div>
-            {% endfor %}
+    <label class="form-label" for="name">Name</label>
+    <input class="form-control" id="name" type="text" name="name" required/>
+    <label class="form-label" for="quantity">Quantity</label>
+    <input class="form-control" id="quantity" type="number" name="quantity" required/>
+    <label class="form-label" for="description">Description</label>
+    <textarea class="form-control" id="description" name="description" required></textarea></br>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <input type="submit" class="btn btn-primary" value="Create New Item!"/>
+    </div>
 </form>
+<hr>
+<div class="row">
+    <div class="col">
+        <h3 class="display-6">All Inventory Items are:</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        Name
+    </div>
+    <div class="col">
+        Quantity
+    </div>
+    <div class="col">
+        Description
+    </div>
+    <div class="col">
+        Delete Item
+    </div>
+    <div class="col">
+        Edit Item
+    </div>
+</div><hr/>
+    {% for item in inventoryItems %}
+        <div id="{{item.name + '-mainDiv'}}" class="row">
+            <div id="{{item.name + '-nameDiv'}}" class="col">{{ item.name }}</div>
+            <div class="col">
+                <button class="col btn btn-primary" onclick="changeQuantity('{{ item.name }}', 'increase');">
+                    +
+                </button>
+                <span class="col p-1" id='{{ item.name }}'>{{item.quantity}}</span>
+                <button class="col btn btn-primary" onclick="changeQuantity('{{ item.name }}', 'decrease')"> - </button>
+            </div>
+            <p id="{{item.name + '-descriptionDiv'}}" class="col"> {{item.description}}</p>
+            <div class="col">
+                <button class="btn btn-danger" onclick="changeQuantity('{{ item.name }}', 'delete')">
+                        Delete
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn btn-warning" onclick="editInventoryItem('{{ item.name }}');"> Edit </button>
+            </div>
+            <div class="row">
+                <div class="col">
+                  <hr/>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
 {% endblock %}

@@ -2,27 +2,52 @@
 
 {% block title %} Shipment {% endblock %}
 
-{% block changeLink %} <a href="/inventory/">Inventory</a> {% endblock %}
+{% block changeLink %} <a href="/inventory/">Inventory Management</a> {% endblock %}
 
 {% block content %}
-<h1> Shipment </h1>
-<form action="/shipment/" id="shipment-form" method="post" enctype="multipart/form-data">
+<div class="row">
+    <div class="col">
+        <h1 class="display-5">Shipment Management </h1>
+    </div>
+</div>
+<form class="form-control" action="/shipment/" id="shipment-form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <label for="Name">Name</label>
-    <input id="Name" type="text" name="Name" required/>
+
+    <label class="form-label" for="name">Name</label>
+    <input class="form-control" id="name" type="text" name="name" required/><br>
+    <label class="form-label" for="description">Description</label>
+    <textarea class="form-control" id="description" type="text" name="description" required></textarea><br>
     {% for item in itemList %}
-        <label for="{{item.name}}">{{item.name}}</label>
-        <input id="{{item.name}}" type="number" name="{{item.name}}" value="0" required/>
+        <label class="form-label" for="{{item.name}}">{{item.name}}</label>
+        <input class="form-control" id="{{item.name}}" type="number" name="{{item.name}}" min="0" max="{{item.quantity}}" required/>
         Available quantity: {{item.quantity}}<br/>
     {% endfor %}
-    <input type="submit" />
-</form><hr/>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <input class="form-control btn btn-primary" type="submit" />
+    </div>
+</form>
 
+<hr/>
+
+<div class="container-fluid">
     {% for shipment in shipmentList %}
-        {{shipment.name}}
+    <div class="container-fluid" id="{{shipment.name + 'mainDiv'}}">
+        <div class="row">
+            <span id="{{shipment.name + 'nameDiv'}}" class="col">{{shipment.name}}</span>
+        </div>
         {% for item in shipment.items %}
-            {{ item.item.name }}, {{item.quantity}}
-        {% endfor %}</hr>
+            <div class="row" id="{{item.item.name + '-itemDiv'}}">
+                <span class="col">
+                  Item Name: {{ item.name }}
+                </span>
+                <span class="col" id="{{item.item.name + '-itemQuantityDiv'}}">
+                    Item Quantity: {{item.quantity}}
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+    <hr/>
     {% endfor %}
+</div>
 
 {% endblock %}

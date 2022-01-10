@@ -1,0 +1,20 @@
+    <form class="form-control row g-3" action="{{'editForm/' + item.name}}" id="inventory-edit-form" method="post" enctype="multipart/form-data">
+        <div class="col-auto">
+            <input class="form-control" type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        </div>
+        <div class="col-auto">
+            <label for="edit-name" class="form-label">Name</label>
+            <input class="form-control" id="edit-name" type="text" name="edit-name" value="{{item.name}}" required/>
+        </div>
+        <div class="col-auto">
+            <label for="edit-quantity" class="form-label">Quantity</label>
+            <input class="form-control" id="edit-quantity" type="number" name="edit-quantity" value="{{item.quantity}}" required/>
+        </div>
+        <div class="col-auto">
+            <label for="edit-description" class="form-label">Description</label>
+            <textarea class="form-control" id="edit-description" name="edit-description" required>{{item.description}}</textarea>
+        </div>
+        <div class="col">
+            <input class="btn btn-primary" type="submit" value="Edit Item!"/>
+        </div>
+    </form>

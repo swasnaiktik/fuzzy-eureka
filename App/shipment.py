@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash
 from .db import db, InventoryItem, Shipment, ShipmentItems
+from .helper import checkQuantity
+
 shipment = Blueprint("shipment", __name__, template_folder='templates', static_folder='static', url_prefix='/shipment')
 
 
@@ -11,18 +13,25 @@ def shipmentLanding():
         return render_template("shipment.html", itemList=inventoryItems, shipmentList=shipmentList)
     else:
         try:
-            shipment = Shipment(name=request.form['Name'])
+            shipment = Shipment()
+            shipment.updateShipment(name=request.form['name'], description=request.form['description'])
             items = InventoryItem.query.all()
+            emptyShipment = True
             for item in items:
-                item_quantity = request.form[item.name]
-                if item_quantity:
-                    ship = ShipmentItems(item=item, quantity=item_quantity)
+                shipmentItemQuantity = int(request.form[item.name])
+                if shipmentItemQuantity:
+                    checkQuantity(shipmentItemQuantity, item.quantity)
+                    emptyShipment = False
+                    item.quantity -= shipmentItemQuantity
+                    ship = ShipmentItems()
+                    ship.updateShipmentItem(name=item.name, item=item, quantity=shipmentItemQuantity)
                     shipment.items.append(ship)
                     db.session.add(ship)
+            if emptyShipment:
+                raise RuntimeError
             db.session.add(shipment)
             db.session.commit()
             flash("Successfully to Created a Shipment")
         except:
             flash("Failed to Create a Shipment")
-
         return redirect('/shipment/')
