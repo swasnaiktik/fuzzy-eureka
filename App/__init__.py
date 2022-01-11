@@ -3,6 +3,7 @@ import os
 from flask import Flask, redirect
 import flask_wtf
 
+
 def logistics():
     app = Flask("Logistics")
     app.config['SECRET_KEY'] = "Testing"
