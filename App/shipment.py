@@ -5,6 +5,8 @@ from .helper import checkQuantity
 shipment = Blueprint("shipment", __name__, template_folder='templates', static_folder='static', url_prefix='/shipment')
 
 
+# GET:  /shipment/ provided HTML of the shipment html page
+# POST: /shipment/ creates an Shipment according to the provided data and updates the quantity of items
 @shipment.route("/", methods=['GET', 'POST'])
 def shipmentLanding():
     if request.method == 'GET':
