@@ -65,6 +65,8 @@ This section will take you through how the Logistron 5000 should be used.
 
 ### Inventory Management
 
+Constraint in Inventory Item Creation: Two Inventory Items cannot have same name
+
 ![Screenshot (82)](https://user-images.githubusercontent.com/26603306/149097612-6a0ec24f-2744-4ff2-bffa-60626fc85094.png)
 
 ![Screenshot (83)](https://user-images.githubusercontent.com/26603306/149097628-88abf7d6-b725-4abe-8c2b-037627073537.png)
@@ -72,6 +74,8 @@ This section will take you through how the Logistron 5000 should be used.
 ![Screenshot (84)](https://user-images.githubusercontent.com/26603306/149097665-4a2d912a-8016-4a68-99cb-184f55b492ad.png)
 
 ### Shipment Management
+
+Constraint in Shipment Creation: Two Shipments cannot have same name.
 
 ![Screenshot (85)](https://user-images.githubusercontent.com/26603306/149097713-1415b316-7cff-4e0c-a2fd-ecf1829d3e21.png)
 
