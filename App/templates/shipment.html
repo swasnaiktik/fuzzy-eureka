@@ -36,11 +36,11 @@
             <span id="{{shipment.name + 'nameDiv'}}" class="col">{{shipment.name}}</span>
         </div>
         {% for item in shipment.items %}
-            <div class="row" id="{{item.item.name + '-itemDiv'}}">
+            <div class="row" id="{{item.name + '-itemDiv'}}">
                 <span class="col">
                   Item Name: {{ item.name }}
                 </span>
-                <span class="col" id="{{item.item.name + '-itemQuantityDiv'}}">
+                <span class="col" id="{{item.name + '-itemQuantityDiv'}}">
                     Item Quantity: {{item.quantity}}
                 </span>
             </div>
