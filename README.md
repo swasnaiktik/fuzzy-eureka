@@ -46,7 +46,7 @@ These are the instructions required to run Application locally
 
 1. Clone the repo
    ```sh
-   git clone git@github.com:swasnaiktik/fuzzy-eureka.git
+   git clone https://github.com/swasnaiktik/fuzzy-eureka.git
    ```
 2. Enter the project directory and run Docker Compose
    ```sh
